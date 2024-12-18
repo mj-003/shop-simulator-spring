@@ -18,7 +18,6 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    // Strona główna dla kategorii (lista kategorii)
     @GetMapping("/")
     public String home(Model model) {
         Date date = new Date();
@@ -32,54 +31,47 @@ public class CategoryController {
         return "categories/index"; // Widok z listą kategorii
     }
 
-    // Seed danych przykładowych
     @GetMapping("/seed")
     public String seed() {
-        categoryService.seed(); // Dodanie przykładowych kategorii
-        return "redirect:/categories/"; // Przekierowanie na stronę główną kategorii
+        categoryService.seed();
+        return "redirect:/categories/";
     }
 
-    // Strona do dodawania kategorii
     @GetMapping("/add")
     public String add(Model model) {
-        model.addAttribute("category", new Category()); // Przekazanie pustego obiektu kategorii
-        return "categories/add"; // Widok do dodawania kategorii
+        model.addAttribute("category", new Category());
+        return "categories/add";
     }
 
-    // Dodanie nowej kategorii
     @PostMapping("/add")
     public String add(@ModelAttribute Category category) {
-        categoryService.createCategory(category); // Tworzenie nowej kategorii
-        return "redirect:/categories/"; // Przekierowanie na stronę z listą kategorii
+        categoryService.createCategory(category);
+        return "redirect:/categories/";
     }
 
-    // Strona szczegółów kategorii
     @GetMapping("/details")
     public String details(@RequestParam("id") Long id, Model model) {
         Category category = categoryService.getCategoryById(id);
         model.addAttribute("category", category);
-        return "categories/details"; // Widok szczegółów kategorii
+        return "categories/details";
     }
 
-    // Edycja kategorii (GET)
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable Long id, Model model) {
         Category category = categoryService.getCategoryById(id);
-        model.addAttribute("category", category); // Przekazanie kategorii do edycji
-        return "categories/edit"; // Widok edycji kategorii
+        model.addAttribute("category", category);
+        return "categories/edit";
     }
 
-    // Edycja kategorii (POST)
     @PostMapping("/edit")
     public String edit(@ModelAttribute Category category) {
-        categoryService.updateCategory(category); // Aktualizacja kategorii
-        return "redirect:/categories/"; // Przekierowanie na stronę z listą kategorii
+        categoryService.updateCategory(category);
+        return "redirect:/categories/";
     }
 
-    // Usunięcie kategorii
     @GetMapping("/remove")
     public String remove(@RequestParam("id") Long id) {
-        categoryService.deleteCategory(id); // Usunięcie kategorii
-        return "redirect:/categories/"; // Przekierowanie na stronę z listą kategorii
+        categoryService.deleteCategory(id);
+        return "redirect:/categories/";
     }
 }

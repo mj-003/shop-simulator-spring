@@ -8,8 +8,8 @@ import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor // Dodanie konstruktora bezargumentowego
-@AllArgsConstructor // Konstruktor z wszystkimi polami
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Category {
     @Id

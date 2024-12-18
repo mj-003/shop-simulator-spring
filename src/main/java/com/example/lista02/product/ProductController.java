@@ -21,7 +21,6 @@ public class ProductController {
         this.categoryService = categoryService;
     }
 
-    // Strona główna dla produktów
     @GetMapping("/")
     public String home(Model model) {
         Date date = new Date();
@@ -31,58 +30,51 @@ public class ProductController {
         model.addAttribute("serverTime", serverTime.toString() );
         List<Product> productList = productService.getAllProducts();
         model.addAttribute("productList", productList);
-        return "products/index"; // Widok z listą produktów
+        return "products/index";
     }
 
-    // Seed danych przykładowych
     @GetMapping("/seed")
     public String seed() {
-        productService.seed(); // Dodanie przykładowych produktów
-        return "redirect:/products/"; // Przekierowanie na stronę główną produktów
+        productService.seed();
+        return "redirect:/products/";
     }
 
-    // Strona do dodawania produktu
     @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("product", new Product());
-        model.addAttribute("categories", categoryService.getAllCategories()); // Przekazanie listy kategorii
-        return "products/add"; // Widok do dodawania produktu
+        model.addAttribute("categories", categoryService.getAllCategories());
+        return "products/add";
     }
 
-    // Dodanie nowego produktu
     @PostMapping("/add")
     public String add(@ModelAttribute Product product) {
-        productService.createProduct(product); // Tworzenie nowego produktu
-        return "redirect:/products/"; // Przekierowanie na stronę z listą produktów
+        productService.createProduct(product);
+        return "redirect:/products/";
     }
 
-    // Strona szczegółów produktu
     @GetMapping("/details")
     public String details(@RequestParam("id") Long id, Model model) {
         Product product = productService.getProductById(id);
         model.addAttribute("product", product);
-        return "products/details"; // Widok szczegółów produktu
+        return "products/details";
     }
 
-    // Edycja produktu (GET)
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable Long id, Model model) {
         model.addAttribute("product", productService.getProductById(id));
         model.addAttribute("categories", categoryService.getAllCategories());
-        return "products/edit"; // Widok edycji produktu
+        return "products/edit";
     }
 
-    // Edycja produktu (POST)
     @PostMapping("/edit")
     public String edit(@ModelAttribute Product product) {
-        productService.updateProduct(product); // Aktualizacja produktu
-        return "redirect:/products/"; // Przekierowanie na stronę z listą produktów
+        productService.updateProduct(product);
+        return "redirect:/products/";
     }
 
-    // Usunięcie produktu
     @GetMapping("/remove")
     public String remove(@RequestParam("id") Long id) {
-        productService.deleteProduct(id); // Usunięcie produktu
-        return "redirect:/products/"; // Przekierowanie na stronę z listą produktów
+        productService.deleteProduct(id);
+        return "redirect:/products/";
     }
 }

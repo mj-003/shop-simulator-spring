@@ -27,18 +27,16 @@ public class ProductService {
 
     // Seed danych do bazy
     public void seed() {
-        // Przykładowe kategorie
         Category category1 = categoryRepository.save(new Category("Pieczywo", "K1"));
         Category category2 = categoryRepository.save(new Category("Nabiał", "K2"));
         Category category3 = categoryRepository.save(new Category("Mięso", "K3"));
 
-        // Przykładowe produkty
         Product product1 = Product.builder()
                 .name("Chleb")
                 .weight(1.0)
                 .price(5.20)
                 .index(12345)
-                .category(category1) // przypisanie do kategorii Pieczywo
+                .category(category1)
                 .build();
         productRepository.save(product1);
 
@@ -47,7 +45,7 @@ public class ProductService {
                 .weight(0.25)
                 .price(7.00)
                 .index(12346)
-                .category(category2) // przypisanie do kategorii Nabiał
+                .category(category2)
                 .build();
         productRepository.save(product2);
 
@@ -56,7 +54,7 @@ public class ProductService {
                 .weight(0.5)
                 .price(12.50)
                 .index(12347)
-                .category(category3) // przypisanie do kategorii Mięso
+                .category(category3)
                 .build();
         productRepository.save(product3);
 
@@ -65,7 +63,7 @@ public class ProductService {
                 .weight(1.0)
                 .price(3.80)
                 .index(12348)
-                .category(category2) // przypisanie do kategorii Nabiał
+                .category(category2)
                 .build();
         productRepository.save(product4);
 
@@ -74,7 +72,7 @@ public class ProductService {
                 .weight(1.2)
                 .price(6.50)
                 .index(12349)
-                .category(category1) // przypisanie do kategorii Pieczywo
+                .category(category1)
                 .build();
         productRepository.save(product5);
     }
