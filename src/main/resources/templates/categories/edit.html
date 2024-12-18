@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="text/html; UTF-8">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Edit Category</title>
+</head>
+<body>
+<div class="container">
+    <h1>Edit Category</h1>
+    <form action="#" th:action="@{/categories/edit}" th:object="${category}" method="post">
+        <!-- ID kategorii, tylko do odczytu -->
+        <p>Id: <input type="text" th:field="*{id}" readonly class="form-control" /></p>
+
+        <!-- Nazwa kategorii -->
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="Enter category name" required />
+        </div>
+
+        <!-- Kod kategorii -->
+        <div class="form-group">
+            <label for="code">Code</label>
+            <input type="text" id="code" th:field="*{code}" class="form-control" placeholder="Enter category code" required />
+        </div>
+
+        <!-- Przycisk zapisz oraz reset -->
+        <div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Link do Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Products List</title>
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-4 mb-4">Products List</h1>
+
+    <!-- Przycisk do dodawania produktów -->
+    <div class="mb-3">
+        <a class="btn btn-success" href="/products/add">Add Product</a>
+        <a class="btn btn-secondary" href="/categories/">View Categories</a>
+    </div>
+
+    <!-- Tabela produktów -->
+    <div class="content">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark text-center">
+            <tr>
+                <th class="text-right">ID</th>
+                <th class="text-left">Name</th>
+                <th class="text-left">Weight (kg)</th>
+                <th class="text-left">Price (PLN)</th>
+                <th class="text-left">Category</th>
+                <th class="text-center" colspan="3">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${productList}">
+                <td class="text-right" th:text="${product.id}"></td>
+                <td class="text-left" th:text="${product.name}"></td>
+                <td class="text-left" th:text="${product.weight}"></td>
+                <td class="text-left" th:text="${product.price}"></td>
+                <td class="text-left" th:text="${product.category.name}"></td>
+
+                <!-- Przyciski akcji z ikonami, wyśrodkowane -->
+                <td class="text-center">
+                    <a class="btn btn-info d-flex justify-content-center" th:href="@{/products/details(id=${product.id})}">
+                        <i class="fas fa-info-circle"></i> <!-- Ikona Details -->
+                    </a>
+                </td>
+                <td class="text-center">
+                    <a class="btn btn-warning d-flex justify-content-center" th:href="@{/products/{productId}/edit(productId=${product.id})}">
+                        <i class="fas fa-edit"></i> <!-- Ikona Edit -->
+                    </a>
+                </td>
+                <td class="text-center">
+                    <a class="btn btn-danger d-flex justify-content-center" th:href="@{/products/remove(id=${product.id})}"
+                       onclick="return confirm('Are you sure you want to delete this product?');">
+                        <i class="fas fa-trash-alt"></i> <!-- Ikona Remove -->
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Wyświetlenie czasu serwera -->
+    <p class="text-muted mt-4" th:text="'Server time: ' + ${serverTime}"></p>
+</div>
+</body>
+</html>

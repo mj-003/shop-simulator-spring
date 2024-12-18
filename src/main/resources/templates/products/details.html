@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="text/html; UTF-8">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Product Details</title>
+</head>
+<body>
+<div class="container">
+    <h1>Product Details</h1>
+    <p>
+    <table class="table table-striped table-bordered" th:object="${product}">
+        <thead>
+        <tr>
+            <th>Property</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Id</td>
+            <td th:text="*{id}"></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td th:text="*{name}"></td>
+        </tr>
+        <tr>
+            <td>Weight (kg)</td>
+            <td th:text="*{weight}"></td>
+        </tr>
+        <tr>
+            <td>Price (PLN)</td>
+            <td th:text="*{price}"></td>
+        </tr>
+        <tr>
+            <td>Index</td>
+            <td th:text="*{index}"></td>
+        </tr>
+        <tr>
+            <td>Category</td>
+            <td th:text="*{category.name}"></td> <!-- Wyświetlenie nazwy kategorii -->
+        </tr>
+        </tbody>
+    </table>
+    </p>
+    <a class="btn btn-primary" href="/products/">Back to Products List</a> <!-- Przycisk powrotu do listy produktów -->
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="text/html; UTF-8">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Add product form</title>
+</head>
+<body>
+<div class="container">
+    <h1>Add a new product</h1>
+    <form action="#" th:action="@{/products/add}" th:object="${product}" method="post">
+        <!-- Name of the product -->
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="Enter product name" required />
+        </div>
+
+        <!-- Weight of the product -->
+        <div class="form-group">
+            <label for="weight">Weight</label>
+            <input type="number" step="0.01" id="weight" th:field="*{weight}" class="form-control" placeholder="Enter product weight" required />
+        </div>
+
+        <!-- Price of the product -->
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" step="0.01" id="price" th:field="*{price}" class="form-control" placeholder="Enter product price" required />
+        </div>
+
+        <!-- Index of the product -->
+        <div class="form-group">
+            <label for="index">Index</label>
+            <input type="number" id="index" th:field="*{index}" class="form-control" placeholder="Enter product index" required />
+        </div>
+
+        <!-- Category of the product -->
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" th:field="*{category}" class="form-control" required>
+                <option value="" th:selected="*{category == null}" disabled>Select a category</option>
+                <option th:each="category : ${categories}"
+                        th:value="${category.id}"
+                        th:text="${category.name}" />
+            </select>
+        </div>
+
+        <!-- Submit and Reset buttons -->
+        <div>
+            <button type="submit" class="btn btn-primary">Add Product</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="text/html; UTF-8">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Edit Product</title>
+</head>
+<body>
+<div class="container">
+    <h1>Edit Product</h1>
+    <form action="#" th:action="@{/products/edit}" th:object="${product}" method="post">
+        <!-- ID produktu, tylko do odczytu -->
+        <div class="form-group">
+            <label for="id">Id</label>
+            <input type="text" id="id" th:field="*{id}" readonly class="form-control" />
+        </div>
+
+        <!-- Nazwa produktu -->
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="Enter product name" required />
+        </div>
+
+        <!-- Waga produktu -->
+        <div class="form-group">
+            <label for="weight">Weight (kg)</label>
+            <input type="number" id="weight" step="0.01" th:field="*{weight}" class="form-control" placeholder="Enter product weight" required />
+        </div>
+
+        <!-- Cena produktu -->
+        <div class="form-group">
+            <label for="price">Price (PLN)</label>
+            <input type="number" id="price" step="0.01" th:field="*{price}" class="form-control" placeholder="Enter product price" required />
+        </div>
+
+        <!-- Indeks produktu -->
+        <div class="form-group">
+            <label for="index">Index</label>
+            <input type="number" id="index" th:field="*{index}" class="form-control" placeholder="Enter product index" required />
+        </div>
+
+        <!-- Kategoria produktu -->
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" th:field="*{category}" class="form-control">
+                <option th:each="category : ${categories}"
+                        th:value="${category.id}"
+                        th:text="${category.name}">Category</option>
+            </select>
+        </div>
+
+        <!-- Przycisk zapisz oraz reset -->
+        <div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

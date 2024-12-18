@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="text/html; UTF-8">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Category Details</title>
+</head>
+<body>
+<div class="container">
+    <h1>Category Details</h1>
+    <p>
+    <table class="table table-striped table-bordered" th:object="${category}">
+        <thead>
+        <tr>
+            <th>Property</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Id</td>
+            <td th:text="*{id}"></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td th:text="*{name}"></td> <!-- Wyświetlenie nazwy kategorii -->
+        </tr>
+        <tr>
+            <td>Code</td>
+            <td th:text="*{code}"></td> <!-- Wyświetlenie kodu kategorii -->
+        </tr>
+        </tbody>
+    </table>
+    </p>
+    <a class="btn btn-primary" href="/categories/">Back to Categories List</a> <!-- Przycisk powrotu do listy kategorii -->
+</div>
+</body>
+</html>
