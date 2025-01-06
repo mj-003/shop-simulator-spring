@@ -21,6 +21,7 @@ public class ProductController {
         this.categoryService = categoryService;
     }
 
+
     @GetMapping("/")
     public String home(Model model) {
         Date date = new Date();
@@ -30,8 +31,12 @@ public class ProductController {
         model.addAttribute("serverTime", serverTime.toString() );
         List<Product> productList = productService.getAllProducts();
         model.addAttribute("productList", productList);
-        return "products/index";
+        return "products/list";
     }
+//    public String home(Model model) {
+//        model.addAttribute("products", productService.getAllProducts());
+//        return "products/list";
+//    }
 
     @GetMapping("/seed")
     public String seed() {

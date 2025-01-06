@@ -3,6 +3,7 @@ package com.example.lista02.product;
 import com.example.lista02.category.Category;
 import com.example.lista02.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
+    @Autowired
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
@@ -17,6 +19,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+//    @PreAuthorize("hasRole('ADMIN')")
     public Product createProduct(Product product) {
         return productRepository.save(product);
     }
