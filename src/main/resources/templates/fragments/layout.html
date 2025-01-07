@@ -15,8 +15,8 @@
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="/products/">Products</a></li>
         <li sec:authorize="hasRole('USER')"><a href="/cart">Cart</a></li>
+        <li sec:authorize="hasRole('ADMIN')"><a href="/products/index">Products</a></li>
         <li sec:authorize="hasRole('ADMIN')"><a href="/categories/">Categories</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

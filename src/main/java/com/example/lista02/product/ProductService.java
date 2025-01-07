@@ -4,6 +4,7 @@ import com.example.lista02.category.Category;
 import com.example.lista02.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,6 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-//    @PreAuthorize("hasRole('ADMIN')")
     public Product createProduct(Product product) {
         return productRepository.save(product);
     }
@@ -28,7 +28,6 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    // Seed danych do bazy
     public void seed() {
         Category category1 = categoryRepository.save(new Category("Pieczywo", "K1"));
         Category category2 = categoryRepository.save(new Category("Nabiał", "K2"));

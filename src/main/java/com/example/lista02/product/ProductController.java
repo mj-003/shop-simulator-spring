@@ -4,7 +4,9 @@ import com.example.lista02.category.CategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +26,13 @@ public class ProductController {
 
     @GetMapping("/")
     public String home(Model model) {
+        List<Product> productList = productService.getAllProducts();
+        model.addAttribute("productList", productList);
+        return "products/list";
+    }
+
+    @GetMapping("/index")
+    public String products(Model model) {
         Date date = new Date();
         DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
                 DateFormat.LONG, Locale.getDefault());
@@ -31,12 +40,9 @@ public class ProductController {
         model.addAttribute("serverTime", serverTime.toString() );
         List<Product> productList = productService.getAllProducts();
         model.addAttribute("productList", productList);
-        return "products/list";
+        return "products/index";
     }
-//    public String home(Model model) {
-//        model.addAttribute("products", productService.getAllProducts());
-//        return "products/list";
-//    }
+
 
     @GetMapping("/seed")
     public String seed() {
@@ -52,9 +58,12 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public String add(@ModelAttribute Product product) {
+    public String add(@ModelAttribute Product product, @RequestParam("imageFile") MultipartFile file) throws IOException {
+        if (!file.isEmpty()) {
+            product.setImage(file.getBytes());
+        }
         productService.createProduct(product);
-        return "redirect:/products/";
+        return "redirect:/products/index";
     }
 
     @GetMapping("/details")
@@ -72,14 +81,23 @@ public class ProductController {
     }
 
     @PostMapping("/edit")
-    public String edit(@ModelAttribute Product product) {
+    public String edit(@ModelAttribute Product product, @RequestParam("imageFile") MultipartFile file) throws IOException {
+        if (!file.isEmpty()) {
+            product.setImage(file.getBytes());
+        } else {
+            // Preserve existing image if no new one uploaded
+            Product existingProduct = productService.getProductById(product.getId());
+            if (existingProduct != null) {
+                product.setImage(existingProduct.getImage());
+            }
+        }
         productService.updateProduct(product);
-        return "redirect:/products/";
+        return "redirect:/products/index";
     }
 
     @GetMapping("/remove")
     public String remove(@RequestParam("id") Long id) {
         productService.deleteProduct(id);
-        return "redirect:/products/";
+        return "redirect:/products/index";
     }
 }
