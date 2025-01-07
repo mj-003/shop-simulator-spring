@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/layout :: head">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <title id="pageTitle">Products</title>
@@ -20,7 +20,7 @@
                    class="card-img-top"
                    th:alt="${product.name}">
               <img th:if="${product.image == null}"
-                   src="/images/placeholder.jpg"
+                   src="/images/placeholder.png"
                    class="card-img-top"
                    alt="Product placeholder">
             </div>
@@ -39,7 +39,7 @@
                 </p>
                 <br>
                 <div class="action-buttons">
-                  <form th:if="${#authorization.expression('hasRole(''USER'')')}"
+                  <form th:if="${#authorization.expression('hasRole(''USER'') or hasRole(''ADMIN'')')}"
                         th:action="@{/cart/add/{id}(id=${product.id})}"
                         method="post"
                         class="w-100">

@@ -1,4 +1,6 @@
 package com.example.lista02.cart;
+import com.example.lista02.product.Product;
+import com.example.lista02.product.ProductService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +22,11 @@ import java.util.Map;
 public class CartService {
     private final String CART_COOKIE_NAME = "shopping_cart";
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ProductService productService;
+
+    public CartService(ProductService productService) {
+        this.productService = productService;
+    }
 
     public void addToCart(HttpServletResponse response,
                           HttpServletRequest request,
@@ -81,6 +89,22 @@ public class CartService {
 
     public List<CartItem> getCartItems(HttpServletRequest request) {
         Map<Long, Integer> cart = getCartFromCookie(request);
-        return null; // TODO: implement
+        List<CartItem> cartItems = new ArrayList<>();
+
+        cart.forEach((productId, quantity) -> {
+            Product product = productService.getProductById(productId);
+            if (product != null) {
+                CartItem item = new CartItem();
+                item.setProductId(productId);
+                item.setProductName(product.getName());
+                item.setPrice(product.getPrice());
+                item.setQuantity(quantity);
+                item.setTotalPrice(product.getPrice() * quantity);
+                cartItems.add(item);
+            }
+        });
+
+        return cartItems;
     }
+
 }
